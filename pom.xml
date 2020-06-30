@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jacey</groupId>
+    <artifactId>TicTacToe-GUI</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.2.RELEASE</version>
+    </parent>
+
+    <properties>
+        <game-common.version>1.0-SNAPSHOT</game-common.version>
+        <game-gm-server.version>1.0-SNAPSHOT</game-gm-server.version>
+        <game-gateway-server.version>1.0-SNAPSHOT</game-gateway-server.version>
+        <game-logic-server.version>1.0-SNAPSHOT</game-logic-server.version>
+        <game-batttle-server.version>1.0-SNAPSHOT</game-batttle-server.version>
+        <game-db.version>1.0-SNAPSHOT</game-db.version>
+        <reflectasm.version>1.11.3</reflectasm.version>
+        <!--        <protobuf-java.version>2.5.0</protobuf-java.version>-->
+        <protobuf-java.version>3.8.0</protobuf-java.version>
+        <akka.version>2.5.4</akka.version>
+        <commons-configuration.version>1.5</commons-configuration.version>
+        <commons-beanutils.version>1.8.0</commons-beanutils.version>
+        <guava.version>24.1-jre</guava.version>
+        <netty.version>4.1.13.Final</netty.version>
+        <jackson.version>2.9.2</jackson.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <!-- protobuf相关 -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf-java.version}</version>
+        </dependency>
+        <!-- akka相关 -->
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor_2.11</artifactId>
+            <version>${akka.version}</version>
+        </dependency>
+        <!-- 常用第三方工具 -->
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>${commons-configuration.version}</version>
+        </dependency>
+        <!--   Netty     -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <!--   lombok   -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--  日志相关  -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+        </dependency>
+        <!--  第三方反射工具包    -->
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>reflectasm</artifactId>
+            <version>${reflectasm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>TicTacToe-GUI</finalName>
+
+        <resources>
+            <!-- 控制资源文件的拷贝 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.conf</include>
+                    <include>**/*.yml</include>
+                </includes>
+
+                <!-- 配置文件外置（在打包时取消注释） 资源文件拷贝到编译输出路径target的子文件夹config目录下 -->
+                <targetPath>${project.build.directory}/config</targetPath>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!-- 设置编译版本 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <!-- 清单文件 -->
+                        <manifest>
+                            <mainClass>com.jacey.game.gui.TicTacToeApplication</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                        <!-- 给清单文件添加键值对(配置文件外置) -->
+                        <manifestEntries>
+                            <Class-Path>./config/</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                    <classesDirectory>
+                    </classesDirectory>
+                </configuration>
+            </plugin>
+            <!-- 打包source文件为jar文件 -->
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <attach>true</attach>
+                    <!--                    <encoding>UTF-8</encoding>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+<!--                <configuration>-->
+<!--                    <fork>true</fork> &lt;!&ndash; 如果没有该配置，devtools不会生效 &ndash;&gt;-->
+<!--                    &lt;!&ndash; 指定该Main Class为全局的唯一入口 &ndash;&gt;-->
+<!--                    <mainClass>com.jacey.game.gui.TicTacToeApplication</mainClass>-->
+<!--                    <layout>ZIP</layout>-->
+<!--                </configuration>-->
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
