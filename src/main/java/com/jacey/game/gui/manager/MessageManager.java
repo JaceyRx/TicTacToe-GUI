@@ -43,6 +43,7 @@ public class MessageManager implements IManager {
         system.actorOf(Props.create(LoginActor.class), "loginActor");
         system.actorOf(Props.create(MatchActor.class), "matchActor");
         system.actorOf(Props.create(ChatRoomActor.class), "chatRoomActor");
+        system.actorOf(Props.create(ForceOfflinePushActor.class), "forceOfflinePushActor");
         system.actorOf(Props.create(BattleMsgHandleActor.class, "com.jacey.game.gui.action.battle"), "battleMsgHandleActor");
     }
 

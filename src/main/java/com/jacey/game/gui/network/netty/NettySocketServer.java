@@ -14,6 +14,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +26,9 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 public class NettySocketServer implements ServerNode {
+
+    private String serverHost;
+    private int serverPort;
 
     private NettySocketServer() {}
 
@@ -39,8 +43,10 @@ public class NettySocketServer implements ServerNode {
 
     @Override
     public void start() throws Exception {
-        String serverHost = ConfigManager.SERVER_HOST;
-        int serverPort = ConfigManager.SERVER_PORT;
+        if (StringUtils.isEmpty(serverHost)) {
+            log.error("【服务器连接异常】 服务器连接地址 >> {}:{}", serverHost, serverPort);
+            System.exit(1);
+        }
 
         try {
             // Netty 客户端启动引导
@@ -78,5 +84,19 @@ public class NettySocketServer implements ServerNode {
 
     }
 
+    public String getServerHost() {
+        return serverHost;
+    }
 
+    public void setServerHost(String serverHost) {
+        this.serverHost = serverHost;
+    }
+
+    public int getServerPort() {
+        return serverPort;
+    }
+
+    public void setServerPort(int serverPort) {
+        this.serverPort = serverPort;
+    }
 }
