@@ -28,7 +28,7 @@
         <commons-configuration.version>1.5</commons-configuration.version>
         <commons-beanutils.version>1.8.0</commons-beanutils.version>
         <guava.version>25.1-jre</guava.version>
-        <netty.version>4.1.13.Final</netty.version>
+        <netty.version>4.1.42.Final</netty.version>
         <jackson.version>2.9.2</jackson.version>
     </properties>
 
