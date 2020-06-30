@@ -24,7 +24,7 @@
         <reflectasm.version>1.11.3</reflectasm.version>
         <!--        <protobuf-java.version>2.5.0</protobuf-java.version>-->
         <protobuf-java.version>3.8.0</protobuf-java.version>
-        <akka.version>2.5.4</akka.version>
+        <akka.version>2.5.16</akka.version>
         <commons-configuration.version>1.5</commons-configuration.version>
         <commons-beanutils.version>1.8.0</commons-beanutils.version>
         <guava.version>25.1-jre</guava.version>
