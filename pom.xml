@@ -27,7 +27,7 @@
         <akka.version>2.5.4</akka.version>
         <commons-configuration.version>1.5</commons-configuration.version>
         <commons-beanutils.version>1.8.0</commons-beanutils.version>
-        <guava.version>24.1-jre</guava.version>
+        <guava.version>25.1-jre</guava.version>
         <netty.version>4.1.13.Final</netty.version>
         <jackson.version>2.9.2</jackson.version>
     </properties>
@@ -153,7 +153,6 @@
                 <version>3.0.0</version>
                 <configuration>
                     <attach>true</attach>
-                    <!--                    <encoding>UTF-8</encoding>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -168,12 +167,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-<!--                <configuration>-->
-<!--                    <fork>true</fork> &lt;!&ndash; 如果没有该配置，devtools不会生效 &ndash;&gt;-->
-<!--                    &lt;!&ndash; 指定该Main Class为全局的唯一入口 &ndash;&gt;-->
-<!--                    <mainClass>com.jacey.game.gui.TicTacToeApplication</mainClass>-->
-<!--                    <layout>ZIP</layout>-->
-<!--                </configuration>-->
             </plugin>
 
         </plugins>
